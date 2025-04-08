@@ -1,0 +1,517 @@
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<title>Introduction to Generative AI | Google Cloud Skills Boost</title>
+<meta name="action-cable-url" content="/cable" />
+<script>
+//<![CDATA[
+window.gon={};gon.deployment="google-run";
+//]]>
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  const properties = JSON.parse(atob('eyJsb2NhbGUiOiJlbiIsInVzZXJfcm9sZXMiOiJzdHVkZW50IiwiZmVhdHVyZV9mZWVkYmFjayI6dHJ1ZSwiZmVhdHVyZV9hYl9jb250ZW50X2djcC1vbmRlbWFuZC1jb250ZW50L1QtR09PR0FWLUJ8cHJvamVjdC1zZWVraG8tcHVibGljLWNhdGFsb2d8MS4wfDEuMSI6ZmFsc2UsImZlYXR1cmVfc2hvd19pbnRlcnZpZXdfd2FybXVwIjp0cnVlLCJmZWF0dXJlX3BlcnNvbmFsaXplZF9xdWVzdHMiOmZhbHNlLCJmZWF0dXJlX2NhY2hlX2V4cGxvcmVfcGFnZV9yZXN1bHQiOnRydWUsImZlYXR1cmVfZ2NzYm9fZnJlZSI6dHJ1ZSwiZmVhdHVyZV9jb21tdW5pdHlfZm9ydW0iOmZhbHNlLCJmZWF0dXJlX3NlYXJjaF9zb3J0X2J5Ijp0cnVlLCJmZWF0dXJlX3NlYXJjaF91cGRhdGVzIjp0cnVlLCJmZWF0dXJlX3VzZV9tb3NhaWMiOnRydWUsImZlYXR1cmVfaGVhZGVyX3NlYXJjaF9iYXIiOnRydWUsImZlYXR1cmVfbHRpX25vX2F1dG9tYXRpY191c2VyX2FjY291bnQiOmZhbHNlLCJmZWF0dXJlX3RlYW1zIjp0cnVlLCJmZWF0dXJlX2NvdXJzZV9tb25ldGl6YXRpb24iOnRydWUsImZlYXR1cmVfZW50aXR5X2FwaV9rZXlzIjp0cnVlLCJmZWF0dXJlX25vX2ZyZWVfY2hhdF9yb2xsb3V0Ijp0cnVlLCJmZWF0dXJlX3BlZXJfYXNzaWdubWVudCI6ZmFsc2UsImZlYXR1cmVfdXNlZF9pbiI6dHJ1ZSwiZmVhdHVyZV9zZWFyY2hfYXV0b2NvbXBsZXRlIjp0cnVlLCJmZWF0dXJlX3NlYXJjaF9zdWdnZXN0aW9ucyI6dHJ1ZSwiZmVhdHVyZV90dXJibyI6ZmFsc2UsImZlYXR1cmVfY29udGVudF9wcm92aWRlcl9hZG1pbiI6dHJ1ZSwiZmVhdHVyZV9pd19haV9hc3Npc3RhbnQiOnRydWUsImZlYXR1cmVfbGFuZGluZ19wYWdlIjp0cnVlLCJmZWF0dXJlX2NoYXRfb2ZmX2Zvcl9zaWduZWRfb3V0X3VzZXJzIjp0cnVlLCJmZWF0dXJlX2NoYWxsZW5nZV9sYWJfZmFzdF90cmFjayI6dHJ1ZSwiZmVhdHVyZV9nd2dfY2F0YWxvZyI6ZmFsc2UsImZlYXR1cmVfZGV2ZWxvcGVyX3ByZW1pdW0iOnRydWUsImZlYXR1cmVfY3JlZGx5Ijp0cnVlLCJmZWF0dXJlX2NvdXJzZV9idWlsZGVyIjpmYWxzZSwiZmVhdHVyZV9oaWRlX3VucG9wdWxhcl9maWx0ZXJzIjp0cnVlLCJmZWF0dXJlX3Byb2dyYW1fYW5ub3VuY2VtZW50cyI6dHJ1ZSwiZmVhdHVyZV9pbm5vdmF0b3Jfc2lnbl9pbiI6dHJ1ZSwiZmVhdHVyZV9mcm9udF9kb29yX2xhbmRpbmdfcGFnZSI6dHJ1ZSwiZmVhdHVyZV9uZXdfY2FyZHMiOnRydWUsImZlYXR1cmVfaGlkZV9wcmljZSI6dHJ1ZSwiZmVhdHVyZV9zaG93X2FubnVhbF9wdXJjaGFzZV9ub3ciOnRydWUsImZlYXR1cmVfYWdyZXNzaXZlX21vbnNvb25fcXVvdGEiOnRydWUsImZlYXR1cmVfbW9uc29vbl9xdW90YV92MiI6dHJ1ZSwiZmVhdHVyZV9sYWJfdXgiOnRydWUsImZlYXR1cmVfc3dpdGNoX3BhdGhfYW5kX2V4cGxvcmVfaGVhZGVycyI6dHJ1ZSwiZmVhdHVyZV9haV9za2lsbHMiOnRydWUsImZlYXR1cmVfYmFya2VyX3BhdXNlIjpmYWxzZSwiZmVhdHVyZV9kZWR1cF9iYWRnZSI6dHJ1ZSwiZmVhdHVyZV9tb25zb29uX3F1b3RhIjp0cnVlLCJmZWF0dXJlX2xvZ19jb29raWVzIjpmYWxzZSwiZmVhdHVyZV9sZWFybmVyX3Byb2ZpbGVfdXgiOmZhbHNlLCJmZWF0dXJlX29uZV90YXAiOnRydWUsImZlYXR1cmVfY3JlZGx5X21hbmFnZW1lbnQiOmZhbHNlLCJmZWF0dXJlX3F1b3RhX21hbmFnZW1lbnQiOnRydWUsImZlYXR1cmVfb2F1dGhfcmlzY19zaHV0b2ZmIjp0cnVlLCJmZWF0dXJlX2d1ZXN0X3VzZXIiOnRydWUsImZlYXR1cmVfb25yYW1wIjp0cnVlLCJmZWF0dXJlX3RlbGxfbmF2eV9hbGxvd2VkX3pvbmVzIjp0cnVlLCJmZWF0dXJlX2F1dG9fY291cnNlX3VwZ3JhZGUiOmZhbHNlLCJmZWF0dXJlX2lsdF9jb250ZW50X3Byb2dyYW0iOmZhbHNlLCJmZWF0dXJlX25ld19yZXBvcnRfZmllbGRzIjp0cnVlLCJmZWF0dXJlX2lubm92YXRvcl9tZW1iZXJzaGlwX21vZGFsIjp0cnVlLCJmZWF0dXJlX3Jlcm91dGVfbmV3X2ludGVydmlld193YXJtdXAiOnRydWUsImZlYXR1cmVfbGFiX3NzbyI6dHJ1ZSwiZmVhdHVyZV9pbm5vdmF0b3JfbWVtYmVyc2hpcCI6dHJ1ZSwiZmVhdHVyZV9zZWFyY2hfYXN5bmMiOnRydWUsImZlYXR1cmVfY2F0YWxvZ19maWx0ZXJfY2hpcHMiOnRydWUsImZlYXR1cmVfY2F0YWxvZ19maWx0ZXJzX2J1dHRvbiI6dHJ1ZSwiZmVhdHVyZV9hbGV4YW5kcmlhX3Nob3dfYnVuZGxlX2Vycm9ycyI6ZmFsc2UsImZlYXR1cmVfd2lwZW91dF9oYXJkX2RlbGV0ZSI6dHJ1ZSwiZmVhdHVyZV9sZWFybmluZ19wbGFuX3NlYXJjaCI6dHJ1ZSwiZmVhdHVyZV9jcmVkbHlfaW50ZWdyYXRpb25fYW5ub3VuY2VtZW50X21vZGFsIjp0cnVlLCJmZWF0dXJlX2FnZV9nYXRlX3Jlc2V0IjpmYWxzZSwiZmVhdHVyZV9yaXNlX3BvYyI6dHJ1ZSwiZmVhdHVyZV9zdXBwb3J0X2NhbGxvdXRzIjp0cnVlLCJmZWF0dXJlX3VzZV9tb3NhaWNfY2FjaGUiOnRydWUsImZlYXR1cmVfcGVyZl90ZXN0IjpmYWxzZSwiZmVhdHVyZV90ZXN0X2ZlYXR1cmVfY2xzIjpmYWxzZSwiZmVhdHVyZV9zc29faW50ZWdyYXRpb25fYWNjZXNzX2FsbG93bGlzdCI6ZmFsc2UsImZlYXR1cmVfY2Fub25pY2FsX2RvbWFpbl9yZWRpcmVjdCI6dHJ1ZSwiZmVhdHVyZV9hbGV4YW5kcmlhX3N1YnNjcmlwdGlvbnNfcGFnaW5hdGlvbiI6dHJ1ZSwiZmVhdHVyZV9vcmdfaW52aXRlX2xpbmsiOnRydWUsImdyb3VwX3N1YWRtaW5zIjpmYWxzZSwiZ3JvdXBfbm9uX3N1YWRtaW5zIjp0cnVlLCJncm91cF9hZG1pbnMiOmZhbHNlLCJncm91cF90cmFpbmVycyI6ZmFsc2UsImdyb3VwX2Nvb3JkaW5hdG9ycyI6ZmFsc2UsImdyb3VwX2NyZWF0b3JzIjpmYWxzZSwiZ3JvdXBfc3R1ZGVudHMiOnRydWUsImdyb3VwX25vbl9vcmdhbml6YXRpb24iOnRydWUsImdyb3VwX29yZ2FuaXphdGlvbl9tZW1iZXJzIjpmYWxzZSwiZ3JvdXBfbm9uX3Byb2dyYW0iOnRydWUsImdyb3VwX2dvb2dsZXJzIjpmYWxzZSwiZ3JvdXBfQ0xTIjpmYWxzZSwiZ3JvdXBfZW5nX3Byb2R1Y3QiOmZhbHNlfQ=='));
+  properties.event = 'user_properties';
+  dataLayer.push(properties);
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    if (arguments[0] === 'event') {
+      dataLayer.push({ event: arguments[1], eventParams: arguments[2] }, { eventParams: undefined });
+    } else {
+      dataLayer.push(arguments);
+    }
+  }
+  let gtmLoaded = false;
+  function glueCookieNotificationBarLoaded() {
+    if (!gtmLoaded) {
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer',"GTM-MBRHNDG7");
+      gtmLoaded = true;
+    }
+  }
+  document.addEventListener('turbo:load', () => {
+    dataLayer.push({ event: 'page_view' });
+  });
+</script>
+<script src="https://cdn.qwiklabs.com/assets/hallofmirrors/polyfills/webcomponents-loader-2e147cb1679d97581f981243bfc2d1c03dc34a58.js"></script>
+<script src="https://cdn.qwiklabs.com/assets/vendor-5ee6eafe71fd3831091397e1aa344044a8642273.js"></script>
+<script src="https://cdn.qwiklabs.com/assets/application-9eb177e0550cc1e4aa5177fc3df67b49d951c65c.js"></script>
+<script src="https://cdn.qwiklabs.com/assets/hallofmirrors/hallofmirrors-12c0cb4baa5e90f49ee520629c26c4cf705c5ef9.js"></script>
+<script src="https://support.google.com/inapp/api.js"></script>
+<script type='application/ld+json'>
+{"@context":"https://schema.org/","@id":"https://www.cloudskillsboost.google/course_templates/536","@type":"Course","name":"Introduction to Generative AI","description":"\u003cp\u003eThis is an introductory level microlearning course aimed at explaining what Generative AI is, how it is used, and how it differs from traditional machine learning methods. It also covers Google Tools to help you develop your own Gen AI apps.\u003c/p\u003e","educationalLevel":"Beginner","image":["https://cdn.qwiklabs.com/OTgJ8b19DPBljHsXpcxdkqMoSRWV6ZCI%2BgZmwDx8My0%3D"],"provider":{"@type":"Organization","name":"Google Cloud","url":"https://cloud.google.com/learn"},"publisher":{"@type":"Organization","name":"Google Cloud Skills Boost","url":"https://cloudskillsboost.google"},"about":["Generative AI","Data Science","Deep Learning"],"teaches":["Define generative AI","Explain how generative AI works","Describe generative AI model types","Describe generative AI applications"],"datePublished":"2025-01-15","inLanguage":"en","availableLanguage":["en"],"offers":[{"@type":"Offer","category":"Free"}],"hasCourseInstance":[{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT45M"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.22","reviewCount":"3166"}}
+</script>
+
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="sCl7lqOGN+Dunm5kjJZkxwbye68d7wYxNgeyyhk1eMiLGW5MI6slpC3nuiEL8t6CFU0CkEvC7q/rpdoYqyRU2g==" />
+<meta content='width=device-width, initial-scale=1.0, user-scalable=yes' name='viewport'>
+<meta content='1rRsY0INj8RvwB5EF5pwdxt2A2P9aDgAlsICaJ0d5w0' name='google-site-verification'>
+<meta content='#3681E4' property='msapplication-TileColor'>
+<meta content='/favicon-144.png' property='msapplication-TileImage'>
+<meta content='{&quot;userId&quot;:82221429,&quot;experimentIds&quot;:[&quot;feedback&quot;,&quot;show_interview_warmup&quot;,&quot;cache_explore_page_result&quot;,&quot;gcsbo_free&quot;,&quot;search_sort_by&quot;,&quot;search_updates&quot;,&quot;use_mosaic&quot;,&quot;header_search_bar&quot;,&quot;teams&quot;,&quot;course_monetization&quot;,&quot;entity_api_keys&quot;,&quot;no_free_chat_rollout&quot;,&quot;used_in&quot;,&quot;search_autocomplete&quot;,&quot;search_suggestions&quot;,&quot;content_provider_admin&quot;,&quot;iw_ai_assistant&quot;,&quot;landing_page&quot;,&quot;chat_off_for_signed_out_users&quot;,&quot;challenge_lab_fast_track&quot;,&quot;developer_premium&quot;,&quot;credly&quot;,&quot;hide_unpopular_filters&quot;,&quot;program_announcements&quot;,&quot;innovator_sign_in&quot;,&quot;front_door_landing_page&quot;,&quot;new_cards&quot;,&quot;hide_price&quot;,&quot;show_annual_purchase_now&quot;,&quot;agressive_monsoon_quota&quot;,&quot;monsoon_quota_v2&quot;,&quot;lab_ux&quot;,&quot;switch_path_and_explore_headers&quot;,&quot;ai_skills&quot;,&quot;dedup_badge&quot;,&quot;monsoon_quota&quot;,&quot;one_tap&quot;,&quot;quota_management&quot;,&quot;oauth_risc_shutoff&quot;,&quot;guest_user&quot;,&quot;onramp&quot;,&quot;tell_navy_allowed_zones&quot;,&quot;new_report_fields&quot;,&quot;innovator_membership_modal&quot;,&quot;reroute_new_interview_warmup&quot;,&quot;lab_sso&quot;,&quot;innovator_membership&quot;,&quot;search_async&quot;,&quot;catalog_filter_chips&quot;,&quot;catalog_filters_button&quot;,&quot;wipeout_hard_delete&quot;,&quot;learning_plan_search&quot;,&quot;credly_integration_announcement_modal&quot;,&quot;rise_poc&quot;,&quot;support_callouts&quot;,&quot;use_mosaic_cache&quot;,&quot;canonical_domain_redirect&quot;,&quot;alexandria_subscriptions_pagination&quot;,&quot;org_invite_link&quot;]}' name='help-api-product-data'>
+<meta content='{&quot;groupIds&quot;:[&quot;non_suadmins&quot;,&quot;students&quot;,&quot;non_organization&quot;,&quot;non_program&quot;]}' name='help-api-custom-data'>
+<meta content='&amp;lt;p&amp;gt;This is an introductory level microlearning course aimed at explaining what Generative AI is, how it is used, and how it differs from traditional machine learning methods. It also covers Google Tools to help you develop your own Gen AI apps.&amp;lt;/p&amp;gt;' name='description'>
+<meta content='Qwiklabs' name='author'>
+<meta content='Introduction to Generative AI | Google Cloud Skills Boost' property='og:title'>
+<meta content='website' property='og:type'>
+<meta content='/favicon-144.png' property='og:image'>
+<meta content='Qwiklabs' property='og:site_name'>
+<meta content='&amp;lt;p&amp;gt;This is an introductory level microlearning course aimed at explaining what Generative AI is, how it is used, and how it differs from traditional machine learning methods. It also covers Google Tools to help you develop your own Gen AI apps.&amp;lt;/p&amp;gt;' property='og:description'>
+<meta content='/qwiklabs_logo_900x887.png' property='og:logo' size='900x887'>
+<meta content='/qwiklabs_logo_994x187.png' property='og:logo' size='994x187'>
+
+
+<meta property="og:url" content="https://www.cloudskillsboost.google/course_templates/536" /><link href="https://www.cloudskillsboost.google/course_templates/536" rel="canonical" />
+<link href='https://cdn.qwiklabs.com/X46FrQX4iLxHW5MxL8jICvgZM0evMEKscCeQO%2BazGdo%3D' rel='shortcut icon' type='image/x-icon'>
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400|Roboto+Mono:400,700|Roboto:300,400,500,700|Google+Sans:300,400,500,700|Google+Sans+Display:400|Material+Icons|Google+Material+Icons|Google+Symbols|Google+Sans+Text:400,500,700" media="screen" />
+
+<link rel="stylesheet" href="https://cdn.qwiklabs.com/assets/application-8de498e1daa565d62258317f7a26b8a6f40fa0af.css" media="all" />
+<link rel="stylesheet" href="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.css" media="screen" />
+
+
+<style>
+  :root {
+    --primary-text-on-surface-color: #0b57d0;
+    --primary-text-on-surface-color-dark: #0a4eba;
+    --primary-text-on-surface-color-darker: #0945a4;
+    --primary-text-on-surface-color-darkest: #083c8f;
+    --primary-surface-color: #0b57d0;
+    --primary-surface-color-rgb: 11,87,208;
+    --primary-surface-color-light: #cfe0fc;
+    --primary-surface-color-lightest: #e7f0fe;
+    --text-on-primary-color: #ffffff;
+    --accent-text-on-surface-color: #f000e8;
+    --accent-surface-color: #f9ab00;
+    --accent-surface-color-rgb: 249,171,0;
+    --accent-surface-color-light: #ffefcc;
+    --text-on-accent-color: #202124;
+  }
+</style>
+
+
+
+</head>
+<body class=' course-template-show-body  course-layout-body l-full no-nav  learner-layout-body '>
+<ql-drawer-container class='body-container'>
+<ql-drawer id='app-nav' mode='over' slot='drawer' width='288'>
+<div class='nav-panel__logo'>
+<div class="custom-logo"><img alt="Google Cloud Skills Boost" height="24" aria-label="Google Cloud Skills Boost" src="https://cdn.qwiklabs.com/PGyhmgS3zZncIEGywnx5UXsKwepRRFQ9BhAg%2FWHNrlQ%3D" /></div>
+</div>
+<nav class='ql-sidenav'>
+<ql-sidenav-item href='/catalog' icon='school' label='Explore'></ql-sidenav-item>
+
+<ql-sidenav-item href='/paths' icon='playlist_add_check' label='Paths'></ql-sidenav-item>
+
+<ql-sidenav-item href='/subscriptions' icon='subscriptions' label='Subscriptions'></ql-sidenav-item>
+
+<ql-button class='outline-back' icon='arrow_forward' label='Back' onclick='ql.toggleAppNav(false)' outlined></ql-button>
+
+</nav>
+
+</ql-drawer>
+<ql-drawer-content class='body-content' slot='drawer-content'>
+<div class='sticky'>
+<ql-toolbar class='app-toolbar' jumpEnabled role='banner'>
+<div class='toolbar-navigation' slot='navigation'>
+<ql-toggle-button class='always-show' for='outline-drawer' icon='menu' id='menu-toggle' label='Toggle course outline' tip='Toggle course outline'></ql-toggle-button>
+
+</div>
+<div class='toolbar-title ql-title-medium' slot='title'><a class="custom-logo" aria-label="Google Cloud Skills Boost" href="/"><div class="custom-logo"><img alt="Google Cloud Skills Boost" height="24" aria-label="Google Cloud Skills Boost" src="https://cdn.qwiklabs.com/PGyhmgS3zZncIEGywnx5UXsKwepRRFQ9BhAg%2FWHNrlQ%3D" /></div></a>
+</div>
+<div class='toolbar-tabs' role='tablist' slot='tabs'><ql-tab href='/catalog' label='Explore'></ql-tab>
+<ql-tab href='/paths' label='Paths'></ql-tab>
+<ql-tab href='/subscriptions' label='Subscriptions'></ql-tab>
+<div class='search-bar-container'>
+<form class="header-search-form" action="/catalog" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" />
+<input autocomplete='off' class='header-search-input' id='searchbar-autocomplete' name='keywords' placeholder='Search'>
+<div class='elevation-3' id='searchbar-autocomplete-loading-icon'>
+<ql-spinner></ql-spinner>
+<div class='ql-body-small'>Loading...</div>
+</div>
+<div class='elevation-3' id='searchbar-autocomplete-no-results'>
+<div class='ql-body-small'>No results found.</div>
+</div>
+<ul class='hide' id='searchbar-autocomplete-menu'></ul>
+</form>
+
+<ql-icon-button class='search-bar-button' icon='search' label='Search for Cloud Skills Boost content'></ql-icon-button>
+<ql-icon-button class='exit-search-button' icon='close' label='Exit search'></ql-icon-button>
+</div>
+</div>
+<div class='toolbar-actions' slot='action'>
+
+<ql-icon-button icon='share' id='share_536' label='Share on social media' tip='Share'></ql-icon-button>
+<ql-menu for='share_536'>
+<ql-menu-item data-analytics-action='Shared to LinkedIn Feed.' data-analytics-category='CourseTemplate' data-analytics-label='Introduction to Generative AI' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.cloudskillsboost.google%2Fcourse_templates%2F536%3Futm_medium%3Dsocial%26utm_source%3Dlinkedin%26utm_campaign%3Dql-social-share' icon='post_linkedin' label='Share on LinkedIn Feed' role='link' target='_blank'>
+<span class='label'>Share on LinkedIn Feed</span>
+</ql-menu-item>
+
+<ql-menu-item data-analytics-action='Shared to Twitter.' data-analytics-category='CourseTemplate' data-analytics-label='Introduction to Generative AI' href='https://twitter.com/intent/tweet?text=Excited%20to%20share%20what%20I%E2%80%99m%20learning%20on%20%23GoogleCloudSkillsBoost&amp;url=https%3A%2F%2Fwww.cloudskillsboost.google%2Fcourse_templates%2F536%3Futm_medium%3Dsocial%26utm_source%3Dtwitter%26utm_campaign%3Dql-social-share&amp;hashtags=' icon='post_twitter' label='Twitter' role='link' target='_blank'>
+<span class='label'>Twitter</span>
+</ql-menu-item>
+
+<ql-menu-item data-analytics-action='Shared to Facebook.' data-analytics-category='CourseTemplate' data-analytics-label='Introduction to Generative AI' href='https://facebook.com/sharer.php?display=popup&amp;u=https%3A%2F%2Fwww.cloudskillsboost.google%2Fcourse_templates%2F536%3Futm_medium%3Dsocial%26utm_source%3Dfacebook%26utm_campaign%3Dql-social-share' icon='post_facebook' label='Facebook' role='link' target='_blank'>
+<span class='label'>Facebook</span>
+</ql-menu-item>
+
+<ql-copyable-input label='Share Link' value='https://www.cloudskillsboost.google/course_templates/536'></ql-copyable-input>
+</ql-menu>
+
+<ql-icon-button class='header-search-button' icon='search' label='Search for Cloud Skills Boost content' tip='Search'></ql-icon-button>
+
+<ql-icon-button class='mobile-hide' icon='help_outline' id='help-menu-button' label='Open help menu' tip='Help'></ql-icon-button>
+<ql-menu for='help-menu-button' id='help-menu'>
+<ql-menu-item data-analytics-action='opened_help' data-analytics-label='course' label='Help Center' onclick='hallofmirrors.helpService.startHelp({&quot;productData&quot;:{&quot;userId&quot;:82221429},&quot;context&quot;:&quot;course&quot;})'></ql-menu-item>
+<ql-menu-item href='mailto:support@qwiklabs.com' label='Email support'></ql-menu-item>
+<ql-menu-item label='Send feedback' onclick='userfeedback.api.startFeedback(
+{
+&#39;productId&#39;: &#39;5080217&#39;,
+&#39;enableAnonymousFeedback&#39;: true,
+&#39;authuser&#39;: &#39;undefined&#39;,
+&#39;locale&#39;: &#39;en&#39;
+},
+{
+&#39;user_id&#39;: &#39;82221429&#39;,
+&#39;current_organization&#39;: &#39;&#39;
+})'></ql-menu-item>
+<ql-menu-item href='https://reportingwidget.google.com/widget/54?cid=1&amp;url=https://www.cloudskillsboost.google/course_templates/536?' label='Report Illegal Content'></ql-menu-item>
+</ql-menu>
+
+<ql-icon-button class='mobile-hide' icon='language' id='language' label='Select your language preference' tip='Language'></ql-icon-button>
+<ql-menu for='language'>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ar' href='/course_templates/536?locale=ar' label='العربية‬‎' lang='ar'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='de' href='/course_templates/536?locale=de' label='Deutsch' lang='de'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='en' href='/course_templates/536?locale=en' label='English' lang='en'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='es' href='/course_templates/536?locale=es' label='español (Latinoamérica)' lang='es'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='fr' href='/course_templates/536?locale=fr' label='français' lang='fr'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='fr_CA' href='/course_templates/536?locale=fr_CA' label='français (Canada)' lang='fr-CA'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='he' href='/course_templates/536?locale=he' label='עברית' lang='he'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='id' href='/course_templates/536?locale=id' label='bahasa Indonesia' lang='id'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='it' href='/course_templates/536?locale=it' label='italiano' lang='it'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ja' href='/course_templates/536?locale=ja' label='日本語' lang='ja'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ko' href='/course_templates/536?locale=ko' label='한국어' lang='ko'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='pl' href='/course_templates/536?locale=pl' label='polski' lang='pl'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='pt_BR' href='/course_templates/536?locale=pt_BR' label='português (Brasil)' lang='pt-BR'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='pt_PT' href='/course_templates/536?locale=pt_PT' label='português (Portugal)' lang='pt-PT'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ru' href='/course_templates/536?locale=ru' label='русский' lang='ru'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='tr' href='/course_templates/536?locale=tr' label='Türkçe' lang='tr'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='uk' href='/course_templates/536?locale=uk' label='українська' lang='uk'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='zh' href='/course_templates/536?locale=zh' label='简体中文' lang='zh'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='zh_TW' href='/course_templates/536?locale=zh_TW' label='繁體中文' lang='zh-TW'></ql-menu-item>
+</ql-menu>
+
+<ql-button class='mobile-hide' data-analytics-action='clicked_header_sign_in' href='/users/sign_in' label='Sign in' text></ql-button>
+<ql-button data-analytics-action='clicked_header_join' href='/users/sign_up' label='Join'></ql-button>
+<script src='https://accounts.google.com/gsi/client'></script>
+<div data-authenticity_token='xlr/LrxrXhELqCUxWXrXvuGwV890nAzmL3b6jLuF/Vb9aur0PEZMVcjR8XTeHm378g8u8CKx5Hjy1JJeCZTRRA==' data-cancel_on_tap_outside='false' data-client_id='1023251155897-tb54g624q9e77gtsrnemgv4c2ihekurv.apps.googleusercontent.com' data-login_uri='/auth/google?tos=false' data-prompt_parent_id='g_id_onload' data-turbo='false' id='g_id_onload'></div>
+
+
+</div>
+</ql-toolbar>
+<div id='callout-container'>
+</div>
+
+</div>
+<div class='page-header'>
+<ql-toolbar class='page-toolbar'>
+<h1 class='toolbar-title ql-title-medium' slot='title'>Google Cloud Skills Boost</h1>
+<div class='toolbar-actions' slot='action'></div>
+</ql-toolbar>
+<div class='page-banner js-page-banner'>
+<div class='content'><span>
+Your Learning progress might get lost. <a href="/users/sign_in">Sign in</a> or <a href="/users/sign_up">Join</a> to save your progress.
+</span>
+</div>
+<ql-icon-button class='js-close-banner'>close</ql-icon-button>
+</div>
+</div>
+<main id='jump-content'>
+<ql-drawer-container class='course-container'>
+<ql-drawer class='course-drawer course-drawer-left' id='outline-drawer' localStorageId='course-outline' open responsive='965' slot='drawer' width='240'>
+<div class='course-outline-header'>
+<ql-button class='main-menu' icon='arrow_back' label='Main menu' onclick='ql.toggleAppNav()' text></ql-button>
+<div class='course-info'>
+<h2 class='ql-title-medium'>
+Introduction to Generative AI
+</h2>
+</div>
+</div>
+<ql-course-outline coursePath='/course_templates/536' modules='[{&quot;id&quot;:&quot;76402&quot;,&quot;title&quot;:&quot;Introduction to Generative AI&quot;,&quot;description&quot;:&quot;\u003cp\u003eThis is an introductory level microlearning course aimed at explaining what Generative AI is, how it is used, and how it differs from traditional machine learning methods. It also covers Google Tools to help you develop your own Gen AI apps.\u003c/p\u003e&quot;,&quot;steps&quot;:[{&quot;id&quot;:&quot;527899&quot;,&quot;prompt&quot;:null,&quot;isOptional&quot;:true,&quot;activities&quot;:[{&quot;id&quot;:&quot;520739&quot;,&quot;href&quot;:&quot;/course_templates/536/video/520739&quot;,&quot;isLocked&quot;:false,&quot;duration&quot;:1322000,&quot;title&quot;:&quot;Introduction to Generative AI&quot;,&quot;description&quot;:null,&quot;type&quot;:&quot;video&quot;,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;score&quot;:null,&quot;disabled&quot;:false}],&quot;isComplete&quot;:false,&quot;isTestedOut&quot;:false,&quot;allActivitiesRequired&quot;:false},{&quot;id&quot;:&quot;527900&quot;,&quot;prompt&quot;:null,&quot;isOptional&quot;:true,&quot;activities&quot;:[{&quot;id&quot;:&quot;520740&quot;,&quot;href&quot;:&quot;/course_templates/536/documents/520740&quot;,&quot;isLocked&quot;:false,&quot;duration&quot;:1800000,&quot;title&quot;:&quot;Introduction to Generative AI: Reading&quot;,&quot;description&quot;:null,&quot;type&quot;:&quot;document&quot;,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;score&quot;:null,&quot;disabled&quot;:false}],&quot;isComplete&quot;:false,&quot;isTestedOut&quot;:false,&quot;allActivitiesRequired&quot;:false},{&quot;id&quot;:&quot;527901&quot;,&quot;prompt&quot;:null,&quot;isOptional&quot;:false,&quot;activities&quot;:[{&quot;id&quot;:&quot;520741&quot;,&quot;href&quot;:&quot;/course_templates/536/quizzes/520741&quot;,&quot;isLocked&quot;:false,&quot;duration&quot;:600000,&quot;title&quot;:&quot;Introduction to Generative AI: Quiz&quot;,&quot;description&quot;:null,&quot;type&quot;:&quot;quiz&quot;,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;score&quot;:null,&quot;disabled&quot;:false}],&quot;isComplete&quot;:false,&quot;isTestedOut&quot;:false,&quot;allActivitiesRequired&quot;:false}],&quot;expanded&quot;:true},{&quot;id&quot;:&quot;next-steps&quot;,&quot;title&quot;:&quot;Your Next Steps&quot;,&quot;description&quot;:null,&quot;steps&quot;:[{&quot;id&quot;:&quot;badge-step&quot;,&quot;prompt&quot;:null,&quot;isOptional&quot;:true,&quot;activities&quot;:[{&quot;id&quot;:&quot;badge&quot;,&quot;href&quot;:null,&quot;isLocked&quot;:true,&quot;duration&quot;:null,&quot;title&quot;:&quot;Course Badge&quot;,&quot;description&quot;:null,&quot;type&quot;:&quot;badge&quot;,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;score&quot;:null,&quot;disabled&quot;:false}],&quot;isComplete&quot;:false,&quot;isTestedOut&quot;:false,&quot;allActivitiesRequired&quot;:false}],&quot;expanded&quot;:true}]'></ql-course-outline>
+</ql-drawer>
+<ql-drawer-content class='course-activity' slot='drawer-content'>
+<div class='course-activity-header'>
+<nav aria-label='Breadcrumb' class='breadcrumbs' role='navigation'>
+<ol class='ql-label-medium'>
+<li class='ql-label-medium'>
+<a id="course_name" href="/course_templates/536">Course</a>
+</li>
+<ql-icon>navigate_next</ql-icon>
+Overview
+</ol>
+</nav>
+</div>
+<div class='course-activity-content'>
+<div class='course-wrapper'>
+<div class='course-top-matter'>
+<div class='course-title'>
+<ql-activity-label activity='course'></ql-activity-label>
+<div class='title-text'>
+<h1 class='ql-display-small'>Introduction to Generative AI</h1>
+</div>
+</div>
+<div class='course-progress'>
+</div>
+<div class='course-skills'>
+<div class='course-skills-chips'>
+<ql-icon class='course-skills-icon'>magic_button</ql-icon>
+<ql-chip gradient>
+Generative AI
+</ql-chip>
+<ql-chip gradient>
+Data Science
+</ql-chip>
+<ql-chip gradient>
+Deep Learning
+</ql-chip>
+</div>
+<div class='course-skills-disclaimer'>
+These skills were generated by AI. Do you agree this course teaches these skills?
+<ql-icon-button class='course-skills-button' href='/course_templates/536/review_skills?response_ids%5B%5D=75228062&amp;response_ids%5B%5D=75228063&amp;response_ids%5B%5D=75228064&amp;score=1' icon='thumb_up_alt' method='post'></ql-icon-button>
+<ql-icon-button class='course-skills-button' icon='thumb_down_alt' onclick='document.querySelector(&#39;#skills_survey_modal&#39;).open();'></ql-icon-button>
+</div>
+<ql-dialog class='skills_survey_modal' id='skills_survey_modal' noDefaultAction>
+<ql-ai-feedback allowBlankSubmit disclaimer='Note: If you don&#39;t provide feedback, you acknowledge that the course successfully teaches the specified skills.' itemResponses='[{&quot;id&quot;:&quot;75228062&quot;,&quot;surveyItem&quot;:{&quot;id&quot;:&quot;1725&quot;,&quot;stem&quot;:&quot;Generative AI&quot;},&quot;feedbackFreeText&quot;:&quot;&quot;,&quot;feedbackCategories&quot;:[],&quot;submitted&quot;:false},{&quot;id&quot;:&quot;75228063&quot;,&quot;surveyItem&quot;:{&quot;id&quot;:&quot;4520&quot;,&quot;stem&quot;:&quot;Data Science&quot;},&quot;feedbackFreeText&quot;:&quot;&quot;,&quot;feedbackCategories&quot;:[],&quot;submitted&quot;:false},{&quot;id&quot;:&quot;75228064&quot;,&quot;surveyItem&quot;:{&quot;id&quot;:&quot;4523&quot;,&quot;stem&quot;:&quot;Deep Learning&quot;},&quot;feedbackFreeText&quot;:&quot;&quot;,&quot;feedbackCategories&quot;:[],&quot;submitted&quot;:false}]' rating='downvote'></ql-ai-feedback>
+</ql-dialog>
+
+</div>
+<div class='course-details'>
+<span class='course-detail'>
+<ql-icon icon='date_range'></ql-icon>
+45 minutes
+</span>
+<span class='course-detail'>
+<ql-icon icon='show_chart'></ql-icon>
+Introductory
+</span>
+<span class='course-detail'>
+<ql-icon>universal_currency_alt</ql-icon>
+No cost
+</span>
+
+</div>
+<div class='course-description'><p>This is an introductory level microlearning course aimed at explaining what Generative AI is, how it is used, and how it differs from traditional machine learning methods. It also covers Google Tools to help you develop your own Gen AI apps.</p></div>
+<div class='course-badge-buttons'>
+<div class='course-badge-buttons__text-badge-section'>
+<div class='course-badge-buttons__text'>
+<p>When you complete this course, you can earn the badge displayed here! View all the badges you have earned by visiting your profile page. Boost your cloud career by showing the world the skills you have developed!</p>
+</div>
+<div class='course-badge-buttons__badge'>
+<div class='course-badge'>
+<img role="presentation" src="https://cdn.qwiklabs.com/X%2BnOuvZSKGDoA9fzGWjqjRxJPWVxFaVWeYmFElQPoK4%3D" />
+</div>
+</div>
+</div>
+<div class='course-badge-buttons__buttons'>
+</div>
+</div>
+
+</div>
+<div class='course-curriculum'>
+<ql-course courseId='15634' modules='[{&quot;id&quot;:&quot;76402&quot;,&quot;title&quot;:&quot;Introduction to Generative AI&quot;,&quot;description&quot;:&quot;\u003cp\u003eThis is an introductory level microlearning course aimed at explaining what Generative AI is, how it is used, and how it differs from traditional machine learning methods. It also covers Google Tools to help you develop your own Gen AI apps.\u003c/p\u003e&quot;,&quot;steps&quot;:[{&quot;id&quot;:&quot;527899&quot;,&quot;prompt&quot;:null,&quot;isOptional&quot;:true,&quot;activities&quot;:[{&quot;id&quot;:&quot;520739&quot;,&quot;href&quot;:&quot;/course_templates/536/video/520739&quot;,&quot;isLocked&quot;:false,&quot;duration&quot;:1322000,&quot;title&quot;:&quot;Introduction to Generative AI&quot;,&quot;description&quot;:null,&quot;type&quot;:&quot;video&quot;,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;score&quot;:null,&quot;disabled&quot;:false}],&quot;isComplete&quot;:false,&quot;isTestedOut&quot;:false,&quot;allActivitiesRequired&quot;:false},{&quot;id&quot;:&quot;527900&quot;,&quot;prompt&quot;:null,&quot;isOptional&quot;:true,&quot;activities&quot;:[{&quot;id&quot;:&quot;520740&quot;,&quot;href&quot;:&quot;/course_templates/536/documents/520740&quot;,&quot;isLocked&quot;:false,&quot;duration&quot;:1800000,&quot;title&quot;:&quot;Introduction to Generative AI: Reading&quot;,&quot;description&quot;:null,&quot;type&quot;:&quot;document&quot;,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;score&quot;:null,&quot;disabled&quot;:false}],&quot;isComplete&quot;:false,&quot;isTestedOut&quot;:false,&quot;allActivitiesRequired&quot;:false},{&quot;id&quot;:&quot;527901&quot;,&quot;prompt&quot;:null,&quot;isOptional&quot;:false,&quot;activities&quot;:[{&quot;id&quot;:&quot;520741&quot;,&quot;href&quot;:&quot;/course_templates/536/quizzes/520741&quot;,&quot;isLocked&quot;:false,&quot;duration&quot;:600000,&quot;title&quot;:&quot;Introduction to Generative AI: Quiz&quot;,&quot;description&quot;:null,&quot;type&quot;:&quot;quiz&quot;,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;score&quot;:null,&quot;disabled&quot;:false}],&quot;isComplete&quot;:false,&quot;isTestedOut&quot;:false,&quot;allActivitiesRequired&quot;:false}],&quot;expanded&quot;:true},{&quot;id&quot;:&quot;next-steps&quot;,&quot;title&quot;:&quot;Your Next Steps&quot;,&quot;description&quot;:null,&quot;steps&quot;:[{&quot;id&quot;:&quot;badge-step&quot;,&quot;prompt&quot;:null,&quot;isOptional&quot;:true,&quot;activities&quot;:[{&quot;id&quot;:&quot;badge&quot;,&quot;href&quot;:null,&quot;isLocked&quot;:true,&quot;duration&quot;:null,&quot;title&quot;:&quot;Course Badge&quot;,&quot;description&quot;:null,&quot;type&quot;:&quot;badge&quot;,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;score&quot;:null,&quot;disabled&quot;:false}],&quot;isComplete&quot;:false,&quot;isTestedOut&quot;:false,&quot;allActivitiesRequired&quot;:false}],&quot;expanded&quot;:true}]'></ql-course>
+<ql-collapsible class='course-info'>
+<div class='course-info-header' slot='header'>
+<ql-icon>info</ql-icon>
+<div class='ql-title-medium'>Course Info</div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+<ql-expandable-list>
+<ql-collapsible>
+<div slot='header'>
+<div class='ql-title-small'>Objectives</div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+<ul>
+<li>
+ Define generative AI 
+</li>
+<li>
+ Explain how generative AI works 
+</li>
+<li>
+ Describe generative AI model types 
+</li>
+<li>
+ Describe generative AI applications 
+</li>
+</ul>
+
+</div>
+</ql-collapsible>
+<ql-collapsible>
+<div slot='header'>
+<div class='ql-title-small'>Prerequisites</div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+<p>N/A</p>
+
+</div>
+</ql-collapsible>
+<ql-collapsible>
+<div slot='header'>
+<div class='ql-title-small'>Audience</div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+General
+
+</div>
+</ql-collapsible>
+<ql-collapsible>
+<div slot='header'>
+<div class='ql-title-small'>Available languages</div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+English, español (Latinoamérica), français, עברית, bahasa Indonesia, italiano, 日本語, 한국어, português (Brasil), 简体中文, 繁體中文, polski, українська, Deutsch, and Türkçe
+
+</div>
+</ql-collapsible>
+<ql-collapsible>
+<div slot='header'>
+<div class='ql-title-small'>What do I do when I finish this course?</div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+After finishing this course, you can explore additional content in your learning path or browse the catalog.
+
+</div>
+</ql-collapsible>
+<ql-collapsible>
+<div slot='header'>
+<div class='ql-title-small'>What badges can I earn?</div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+Upon finishing the required items in a course, you will earn a badge of completion. Badges can be viewed on your profile and shared with your social network.
+
+</div>
+</ql-collapsible>
+<ql-collapsible>
+<div slot='header'>
+<div class='ql-title-small'>Interested in taking this course with one of our authorized on-demand partners? </div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+Explore Google Cloud content on <a href="https://www.coursera.org/googlecloud" target="_blank"> Coursera </a> and <a href="https://www.pluralsight.com/authors/google-cloud" target="_blank"> Pluralsight. </a>
+
+</div>
+</ql-collapsible>
+<ql-collapsible>
+<div slot='header'>
+<div class='ql-title-small'>Prefer learning with an instructor? </div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+View the public classroom schedule <a href="https://cloud.google.com/training/courses" target="_blank"> here. </a>
+
+</div>
+</ql-collapsible>
+<ql-collapsible>
+<div slot='header'>
+<div class='ql-title-small'>Can I take this course for free?</div>
+</div>
+<div class='ql-body-medium' slot='collapsible'>
+When you enroll into most courses, you will be able to consume course materials like videos and documents for free. If a course consists of labs, you will need to purchase an individual subscription or credits to be able consume the labs. Labs can also be unlocked by any campaigns you participate in. All required activities in a course must be completed to be awarded the completion badge.
+
+</div>
+</ql-collapsible>
+
+</ql-expandable-list>
+</div>
+</ql-collapsible>
+</div>
+
+</div>
+</div>
+</ql-drawer-content>
+</ql-drawer-container>
+
+</main>
+
+<footer class='application-footer'>
+
+<a target="_blank" href="/privacy_policy">Privacy</a>
+<a href="/terms_of_service">Terms</a>
+<a class='glue-cookie-notification-bar-control'>
+Manage cookies
+</a>
+<div class='powered-by'>
+<span aria-hidden>Powered by</span>
+<img alt="Powered by Qwiklabs" src="https://cdn.qwiklabs.com/assets/qwiklabs_logo_grayscale-253167e4722753ac463e99dbda9945e0db4a7f88.svg" />
+</div>
+
+
+</footer>
+</ql-drawer-content>
+</ql-drawer-container>
+
+<span class='hidden' id='flash-sibling-before'></span>
+<ql-snackbar></ql-snackbar>
+
+<script data-glue-cookie-notification-bar-category='2A' src='https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.js'></script>
+
+
+
+<ql-dialog id='js-challenge-help-dialog'>
+<h1 class='ql-headline-large'>The Power of Challenge Labs</h1>
+<p class='text--small text--light l-mtl'>
+Now you can fast track your way to a skill badge without having to take the entire course. If you&#39;re confident with your skills, jump straight to the challenge lab.
+</p>
+</ql-dialog>
+
+<ql-dialog dismissalLabel='Cancel' headline='A newer version of this course is available. Your progress will carry over if you choose to upgrade. However, your completion percentage may change if the new version has added or removed any learning activities. Click the preview button to see the course changes before upgrading.' icon='error' id='course-session-upgrade-modal'>
+<ql-button href='/course_templates/536/preview' label='Preview' slot='action'>
+Preview
+</ql-button>
+</ql-dialog>
+
+
+
+<script>
+  document.addEventListener("turbo:load", function () {
+    ql.initMaterialInputs();
+    initChosen();
+    initTabs();
+    ql.list.init();
+    ql.favoriting.init();
+    ql.header.myAccount.init();
+    initTooltips();
+    ql.autocomplete.init();
+    ql.modals.init();
+    ql.toggleButtons.init();
+    ql.analytics.init();
+    Turbo.session.drive = false;
+    ql.aiFeaturesSurvey.init();
+  ql.course_resize_layout.init("", "Path", "Introduction to Generative AI", "Course", "");
+  ql.searchHeader.init();
+  (new ql.searchAutocomplete()).init({forHeader: true, topSuggestions: [{"label":"machine learning"},{"label":"cloud architecture"},{"label":"generative ai"},{"label":"data analyst"},{"label":"security fundamentals"}]});
+  ql.messages.init();
+  ql.jumpContent.init();
+  
+  }, {once: true});
+</script>
+
+</body>
+</html>
+
+
+
